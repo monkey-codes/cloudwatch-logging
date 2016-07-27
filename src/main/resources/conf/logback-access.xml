@@ -1,0 +1,41 @@
+<configuration>
+    <define name="app_name" class="codes.monkey.logging.LoggingTagsPropertyDefiner">
+        <property>app.name</property>
+    </define>
+    <define name="app_version" class="codes.monkey.logging.LoggingTagsPropertyDefiner">
+        <property>app.version</property>
+    </define>
+    <define name="eb_hostname" class="codes.monkey.logging.BeanStalkPropertyDefiner">
+        <field>hostname</field>
+    </define>
+    <define name="eb_instance_id" class="codes.monkey.logging.BeanStalkPropertyDefiner">
+        <field>instance-id</field>
+    </define>
+    <define name="eb_instance_type" class="codes.monkey.logging.BeanStalkPropertyDefiner">
+        <field>instance-type</field>
+    </define>
+    <define name="eb_ip" class="codes.monkey.logging.BeanStalkPropertyDefiner">
+        <field>local-ipv4</field>
+    </define>
+
+    <appender name="access" class="net.logstash.logback.appender.AccessEventAsyncDisruptorAppender">
+        <appender class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="codes.monkey.logging.TimestampFormatPropertyDefiner$CloudwatchAccessLogstashEncoder" >
+                <fieldNames>
+                    <!--<fieldsMethod>fields_method</fieldsMethod>-->
+                    <fieldsProtocol>fields_protocol</fieldsProtocol>
+                    <fieldsStatusCode>fields_status_code</fieldsStatusCode>
+                    <fieldsRequestedUrl>fields_requested_url</fieldsRequestedUrl>
+                    <fieldsRequestedUri>fields_requested_uri</fieldsRequestedUri>
+                    <fieldsRemoteHost>fields_remote_host</fieldsRemoteHost>
+                    <fieldsHostname>fields_hostname</fieldsHostname>
+                    <fieldsRemoteUser>fields_remote_user</fieldsRemoteUser>
+                    <fieldsContentLength>fields_content_length</fieldsContentLength>
+                    <fieldsElapsedTime>fields_elapsed_time</fieldsElapsedTime>
+                </fieldNames>
+                <customFields>{"app_name":"${app_name}","app_version":"${app_version}","eb_hostname":"${eb_hostname}","eb_instance_id":"${eb_instance_id}","eb_instance_type":"${eb_instance_type}","eb_ip":"${eb_ip}"}</customFields>
+            </encoder>
+        </appender>
+    </appender>
+    <appender-ref ref="access"/>
+</configuration>
