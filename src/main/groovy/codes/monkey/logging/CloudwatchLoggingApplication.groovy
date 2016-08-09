@@ -2,6 +2,7 @@ package codes.monkey.logging
 
 import ch.qos.logback.access.tomcat.LogbackValve
 import org.apache.catalina.Context
+import org.perf4j.slf4j.aop.TimingAspect
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory
@@ -17,6 +18,11 @@ class CloudwatchLoggingApplication {
 		def factory = new TomcatEmbeddedServletContainerFactory()
 		factory.setTomcatContextCustomizers([customizer])
 		factory
+	}
+
+	@Bean
+	TimingAspect timingAspect(){
+		new TimingAspect()
 	}
 
 	@Bean

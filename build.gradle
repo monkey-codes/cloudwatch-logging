@@ -37,6 +37,7 @@ dependencies {
 		logStashLogbackEncoderVersion = '4.7'
 	}
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-aop')
 	compile('org.codehaus.groovy:groovy-all')
 	compile("ch.qos.logback:logback-classic:$logbackVersion")
 	compile("ch.qos.logback:logback-core:$logbackVersion")
@@ -45,6 +46,11 @@ dependencies {
 	compile("org.slf4j:jcl-over-slf4j:$slf4jApiVersion")
 	compile("org.slf4j:log4j-over-slf4j:$slf4jApiVersion")
 	compile("net.logstash.logback:logstash-logback-encoder:$logStashLogbackEncoderVersion")
+
+	//perf4j
+	compile("org.perf4j:perf4j:0.9.16")
+	compile("commons-jexl:commons-jexl:1.1")
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
